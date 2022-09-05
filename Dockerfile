@@ -1,7 +1,10 @@
-FROM golang:1.12-alpine as builder
+FROM alpine:3.16
 
-RUN apk add --no-cache gcc libc-dev make git \
-    && go get -u github.com/pressly/goose/cmd/goose
+ENV GOOSE_VER="v3.7.0"
 
-FROM alpine:latest
-COPY --from=builder /go/bin/goose /bin/goose
+RUN set -xe; \
+    apk add --update --no-cache ca-certificates curl; \
+    wget https://github.com/pressly/goose/releases/download/${GOOSE_VER}/goose_linux_x86_64 -O /bin/goose ; \
+    chmod +x /bin/goose
+
+ENTRYPOINT ["/bin/goose"]
