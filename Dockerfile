@@ -1,6 +1,6 @@
-FROM alpine:3.16
+FROM alpine:3.17
 
-ENV GOOSE_VER="v3.7.0"
+ENV GOOSE_VER="v3.9.0"
 
 RUN set -xe; \
     apk add --update --no-cache ca-certificates curl; \
